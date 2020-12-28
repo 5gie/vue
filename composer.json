@@ -1,0 +1,15 @@
+{
+    "name": "exio/cms",
+    "authors": [
+        {
+            "name": "5gie",
+            "email": "chmiel11@poczta.fm"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require": {}
+}
