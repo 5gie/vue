@@ -1,20 +1,10 @@
 <h1>Register</h1>
-<form method="POST">
-    <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input type="text" name="name" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="text" name="email" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" name="pw1" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Confirm password</label>
-        <input type="password" name="pw2" class="form-control">
-    </div>
+<?php $form = \app\system\form\Form::begin('','POST') ?>
+
+    <?php echo $form->field($model, 'name') ?>
+    <?php echo $form->field($model, 'email') ?>
+    <?php echo $form->field($model, 'pw1')->passwordField() ?>
+    <?php echo $form->field($model, 'pw2')->passwordField() ?>
+
     <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<?php echo \app\system\form\Form::end() ?>

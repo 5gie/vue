@@ -87,4 +87,15 @@ abstract class Model
         ];
 
     }
+
+    public function hasError($attr)
+    {
+        return $this->errors[$attr] ?? false;
+    }
+
+    public function getFirstError($attr)
+    {
+        return $this->errors[$attr][0] ?? false;
+    }
+
 }
