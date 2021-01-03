@@ -1,3 +1,7 @@
+<?php
+
+use app\system\App;
+?>
 <!doctype html>
 <html lang="en">
 
@@ -9,7 +13,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title><?php echo $this->title ?></title>
 </head>
 
 <body>
@@ -28,19 +32,36 @@
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                </ul>
+                <?php if (App::isGuest()) : ?>
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    </ul>
+                <?php else : ?>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
             </div>
         </div>
     </nav>
 
     <div class="container">
+        <?php if (App::$app->session->getFlash('success')) : ?>
+            <div class="alert alert-success">
+                <?php echo App::$app->session->getFlash('success') ?>
+            </div>
+        <?php endif; ?>
         {{content}}
     </div>
 

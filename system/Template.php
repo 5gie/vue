@@ -16,7 +16,9 @@ class Template
 
     protected function layoutContent()
     {
-        $layout = App::$app->controller->layout;
+
+        $layout = App::$app->controller ? App::$app->controller->layout : App::$app->controller;
+
         ob_start();
         include_once App::$ROOT_DIR . "/views/layouts/$layout.php";
         return ob_get_clean();
