@@ -8,7 +8,6 @@ class Router
 {
     public Request $request;
     public Response $response;
-    public Template $template;
     protected array $routes = [];
 
     public function __construct(Request $request, Response $response)
@@ -16,7 +15,6 @@ class Router
         
         $this->request = $request;
         $this->response = $response;
-        $this->template = new Template;
 
     }
     
@@ -48,7 +46,7 @@ class Router
 
         }
 
-        if(is_string($callback)) return $this->template->renderView($callback);
+        if(is_string($callback)) return App::$app->view->renderView($callback);
         if(is_array($callback)) {
             
             $controller = new $callback[0];

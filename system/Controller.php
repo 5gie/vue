@@ -21,9 +21,7 @@ class Controller
     public function render($view, $params = [])
     {
 
-        $template = new Template;
-
-        return $template->renderView($view, $params);
+        return App::$app->view->renderView($view, $params);
 
     }
 

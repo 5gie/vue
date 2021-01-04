@@ -2,14 +2,16 @@
 
 namespace app\system;
 
-class Template
+class View
 {
+
+    public string $title = '';
 
     public function renderView($view, $params = [])
     {
 
-        $layoutContent = $this->layoutContent();
         $viewContent = $this->renderOnlyView($view, $params);
+        $layoutContent = $this->layoutContent();
         return str_replace('{{content}}', $viewContent, $layoutContent);
         include_once App::$ROOT_DIR . "/views/$view.php";
     }

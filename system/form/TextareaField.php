@@ -3,22 +3,19 @@
 namespace app\system\form;
 use app\system\Model;
 
-class Field
+class TextareaField extends BaseField
 {
     public const TYPE_TEXT = 'text';
     public const TYPE_PASSWORD = 'password';
     public const TYPE_NUMBER = 'number';
 
-    public Model $model;
-    public string $attr;
     public string $type;
 
     public function __construct(Model $model, string $attr)
     {
 
         $this->type = self::TYPE_TEXT;
-        $this->model = $model;
-        $this->attr = $attr;
+        parent::__construct($model, $attr);
 
     }
 
@@ -28,19 +25,16 @@ class Field
         return sprintf('
             <div class="mb-3">
                 <label class="form-label">%s</label>
-                <input type="%s" name="%s" value="%s" class="form-control %s">
+                %s
                 <div class="invalid-feedback">%s</div>
             </div>
-        ', $this->model->getLabel($this->attr), $this->type, $this->attr, $this->model->{$this->attr}, $this->model->hasError($this->attr) ? 'is-invalid' : '', $this->model->getFirstError($this->attr));
+        ', $this->model->getLabel($this->attr), $this->renderInput(), $this->model->getFirstError($this->attr));
 
     }
 
-    public function passwordField()
+    public function renderInput(): string
     {
-
-        $this->type = self::TYPE_PASSWORD;
-        return $this;
-
+        return sprintf('<textarea name="%s" class="form-control %s">%s</textarea>', $this->attr, $this->model->hasError($this->attr) ? 'is-invalid' : '', $this->model->{$this->attr});
     }
 
 }

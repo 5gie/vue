@@ -15,8 +15,9 @@ class App
     public Response $response;
     public Database $db;
     public Session $session;
+    public View $view;
     public ?Controller $controller = null;
-    public ?DbModel $user;
+    public ?UserModel $user;
 
     public function __construct($root, array $config)
     {
@@ -28,6 +29,7 @@ class App
         $this->request = new Request;
         $this->response = new Response;
         $this->session = new Session;
+        $this->view = new View;
         $this->router = new Router($this->request, $this->response);
         $this->db = new Database($config['db']);
 
@@ -65,7 +67,7 @@ class App
     //     $this->controller = $controller;
     // }
 
-    public function login(DbModel $user)
+    public function login(UserModel $user)
     {
         $this->user = $user;
         $primaryKey = $user->primaryKey();
