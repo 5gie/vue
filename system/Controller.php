@@ -4,26 +4,19 @@ namespace app\system;
 
 use app\system\middlewares\BaseMiddleware;
 
-class Controller
+class Controller extends View
 {
  
-    public string $layout = 'main';
     public string $action = '';
     protected array $middlewares = [];
+    protected array $flash = [];
 
-    public function setLayout($layout)
-    {
+    // public function render($template, $params = [])
+    // {
 
-        $this->layout = $layout;
+    //     return $this->renderView($template, $params);
 
-    }
-
-    public function render($view, $params = [])
-    {
-
-        return App::$app->view->renderView($view, $params);
-
-    }
+    // }
 
     public function registerMiddleware(BaseMiddleware $middleware)
     {
@@ -35,6 +28,12 @@ class Controller
     public function getMiddlewares(): array
     {
         return $this->middlewares;
+    }
+
+    public function json($data)
+    {
+        header('Content-type: application/json');
+        echo json_encode($data);
     }
 
 }

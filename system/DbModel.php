@@ -9,7 +9,7 @@ use PDOException;
 abstract class DbModel extends Model
 {
 
-    abstract public function tableName(): string;
+    abstract static public function tableName(): string;
 
     abstract public function attributes(): array;
 
@@ -39,7 +39,7 @@ abstract class DbModel extends Model
 
     public static function prepare($sql)
     {
-        return App::$app->db->pdo->prepare($sql);
+        return App::$app->db->prepare($sql);
     }
 
     public static function findOne($where)

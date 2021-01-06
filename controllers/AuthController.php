@@ -9,6 +9,7 @@ use app\system\App;
 use app\models\LoginForm;
 use app\system\middlewares\AuthMiddleware;
 use app\system\Response;
+use app\system\Session;
 
 class AuthController extends Controller
 {
@@ -21,7 +22,6 @@ class AuthController extends Controller
     public function login(Request $request, Response $response)
     {
 
-        $errors = [];
         $loginForm = new LoginForm;
         if($request->post()){
 
@@ -32,19 +32,19 @@ class AuthController extends Controller
                 return;
             }
         }
-        $this->setLayout('auth');
+        // $this->setLayout('auth');
+
         return $this->render('auth/login', [
             'model' => $loginForm
         ]);
 
     }
 
-    public function register(Request $request)
+    public function register(Request $request, Response $response)
     {
 
-        $errors = [];
-
         $user = new User();
+        $session = new Session;
         
         if ($request->post()) {
 
@@ -52,15 +52,14 @@ class AuthController extends Controller
 
             if($user->validate() && $user->save()){
 
-                App::$app->session->setFlash('success', 'Thank you for registration');
-                App::$app->response->redirect('/');
+                $session->setFlash('success', 'Thank you for registration');
+                $response->redirect('/');
             
             }
 
-
         }
 
-        $this->setLayout('auth');
+        // $this->setLayout('auth');
 
         return $this->render('auth/register', [
             'model' => $user

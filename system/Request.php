@@ -9,7 +9,7 @@ class Request
     {
 
         $path = $_SERVER['REQUEST_URI'] ?? '/';
-        
+
         $position = strpos($path, '?');
 
         if($position === false) return $path;
@@ -46,7 +46,7 @@ class Request
 
         if($this->get()){
 
-            foreach ($_GET as $key => $get) $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+            foreach ($_GET as $key => $get) $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
 
         }
 

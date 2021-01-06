@@ -29,7 +29,6 @@ class App
         $this->request = new Request;
         $this->response = new Response;
         $this->session = new Session;
-        $this->view = new View;
         $this->router = new Router($this->request, $this->response);
         $this->db = new Database($config['db']);
 
@@ -57,15 +56,6 @@ class App
 
     }
 
-    // public function getController(): \app\system\Controller
-    // {
-    //     return $this->contoller;
-    // }
-
-    // public function setController(\app\system\Controller $controller): void
-    // {
-    //     $this->controller = $controller;
-    // }
 
     public function login(UserModel $user)
     {

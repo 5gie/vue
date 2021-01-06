@@ -2,38 +2,45 @@
 
 namespace app\system;
 
-class View
+abstract class View
 {
 
-    public string $title = '';
-
-    public function renderView($view, $params = [])
+    public function render()
     {
 
-        $viewContent = $this->renderOnlyView($view, $params);
-        $layoutContent = $this->layoutContent();
-        return str_replace('{{content}}', $viewContent, $layoutContent);
-        include_once App::$ROOT_DIR . "/views/$view.php";
+        include_once App::$ROOT_DIR . "/views/index.html";
+
     }
+    // public string $title = '';
+    // public string $layout = 'main';
 
-    protected function layoutContent()
-    {
+    // public function renderView($view, $params = [])
+    // {
+    //     include_once App::$ROOT_DIR . "/views/$view.html";
+    // }
 
-        $layout = App::$app->controller ? App::$app->controller->layout : App::$app->controller;
+    // public function setLayout($layout)
+    // {
 
-        ob_start();
-        include_once App::$ROOT_DIR . "/views/layouts/$layout.php";
-        return ob_get_clean();
-    }
+    //     $this->layout = $layout;
+    // }
 
-    protected function renderOnlyView($view, $params)
-    {
+    // protected function layoutContent()
+    // {
 
-        foreach($params as $key => $value) $$key = $value;
+    //     ob_start();
+    //     include_once App::$ROOT_DIR . "/views/layouts/$this->layout.php";
+    //     return ob_get_clean();
+    // }
 
-        ob_start();
-        include_once App::$ROOT_DIR . "/views/$view.php";
-        return ob_get_clean();
-    }
+    // protected function renderOnlyView($view, $params)
+    // {
+
+    //     foreach($params as $key => $value) $$key = $value;
+
+    //     ob_start();
+    //     include_once App::$ROOT_DIR . "/views/$view.php";
+    //     return ob_get_clean();
+    // }
 
 }
