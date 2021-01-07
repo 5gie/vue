@@ -1,31 +1,25 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-main>
+      <Todo/>
+      <!-- <Register/> -->
+      <!-- <Login/> -->
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import Login from './components/Auth/Login.vue';
+// import Register from './components/Auth/Register.vue';
+import Todo from './components/Todo.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  },
-  created(){
-    fetch('/api/test', {method: 'get'}).then((resp) => console.log(resp));
+    // Login,
+    // Register,
+    Todo
   }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+};
+</script>
