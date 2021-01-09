@@ -1,15 +1,42 @@
 <template>
-  <div>
-      <h1>todo</h1>
+  <div class="pb-12" style="height:100vh">
+    <v-container fluid px-0 style="height:100%">
+      <v-layout row align-space-beetween justify-space-beetween>
+        <v-flex lg3 px-3>
+          <Lists />
+        </v-flex>
+        <v-flex lg6 px-3>
+          <router-view name="Tasks" :key="$route.fullPath"></router-view>
+          <!-- <Tasks /> -->
+        </v-flex>
+        <v-flex lg3 px-3>
+          <OptionsBar />
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-footer padless fixed>
+      <v-col class="text-center">
+          {{ new Date().getFullYear() }} &copy; <strong>Pozdrawiam serdecznie</strong>
+      </v-col>
+    </v-footer>
   </div>
 </template>
 
 <script>
+import Lists from "./Lists.vue";
+// import Tasks from "./Tasks.vue";
+import OptionsBar from './OptionsBar.vue';
 export default {
-    name: 'Todo'
-}
+  name: "Todo",
+  components: { 
+    Lists,
+    // Tasks,
+    OptionsBar
+  },
+};
 </script>
-
 <style>
-
+    html{
+      overflow: hidden auto;
+    }
 </style>

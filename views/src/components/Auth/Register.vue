@@ -1,7 +1,7 @@
 <template>
     <v-container fill-height>
         <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
+            <v-flex xs12 sm8 md5>
                 <v-card class="elevation-12">
                     <v-form>
                         <v-toolbar dark color="blue">
@@ -17,9 +17,9 @@
                             <v-text-field name="password" label="Confirm password" type="password" prepend-icon="mdi-lock" :rules="[rules.required]" :error="!valid()" v-model="confirm_password"></v-text-field>
                         </v-card-text>
                         <v-card-actions>
-                            <v-btn color="indigo" dark>Login</v-btn>
+                            <v-btn color="blue" dark to="/login">Login</v-btn>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue" dark>Register <v-icon>mdi-chevron-right</v-icon></v-btn>
+                            <v-btn color="success" dark @click.prevent="register()">Register <v-icon>mdi-chevron-right</v-icon></v-btn>
                         </v-card-actions>
                     </v-form>
                 </v-card>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-    name: 'Register',
+    name: "Register",
     data: () => ({
         password: '',
         confirm_password: '',
@@ -44,6 +44,9 @@ export default {
         }
     }),
     methods: {
+        register(){
+            // this.$router.push('/login')
+        },
         valid() { 
             return this.password === this.confirm_password
         }

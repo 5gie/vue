@@ -14,9 +14,9 @@
                         <v-text-field name="password" label="password" type="password" prepend-icon="mdi-lock"></v-text-field>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="indigo" dark>Register</v-btn>
+                        <v-btn color="blue" dark to="/register">Register</v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue" dark>Login <v-icon>mdi-chevron-right</v-icon></v-btn>
+                        <v-btn color="success" dark @click.prevent="login()">Login <v-icon>mdi-chevron-right</v-icon></v-btn>
                     </v-card-actions>
                 </v-form>
             </v-card>
@@ -27,7 +27,12 @@
 
 <script>
 export default {
-
+    name: "Login",
+    methods: {
+        login() {
+            this.$router.push('/')
+        }
+    }
 }
 </script>
 
