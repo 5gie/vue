@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="show">
         <v-card height="calc(100vh - 48px)" class="rounded-0 d-flex flex-column" style="overflow:hidden">
             <v-toolbar color="indigo" dark class="flex-grow-0">
                 <v-toolbar-title>
@@ -38,7 +38,7 @@
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item @click.prevent="openDrawer">
                         <v-list-item-content>
                             <v-list-item-title>
                                 Change background
@@ -57,6 +57,11 @@ import MoreOptions from './MoreOptions.vue'
 export default {
     name: "OptionsBar",
     components: { MoreOptions },
+    computed: {
+        show() {
+            return this.$route.params.id;
+        }
+    },
     data: () => ({
         items: [
             {
@@ -101,6 +106,9 @@ export default {
         }, 
         filter(value) {
             console.log('filter by '+value);
+        },
+        openDrawer(){
+            this.$store.commit("SET_DRAWER", true);
         }
     }
 }

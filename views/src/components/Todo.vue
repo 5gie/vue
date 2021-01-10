@@ -7,7 +7,6 @@
         </v-flex>
         <v-flex lg6 px-3>
           <router-view name="Tasks" :key="$route.fullPath"></router-view>
-          <!-- <Tasks /> -->
         </v-flex>
         <v-flex lg3 px-3>
           <OptionsBar />
@@ -19,19 +18,20 @@
           {{ new Date().getFullYear() }} &copy; <strong>Pozdrawiam serdecznie</strong>
       </v-col>
     </v-footer>
+    <Notification />
   </div>
 </template>
 
 <script>
-import Lists from "./Lists.vue";
-// import Tasks from "./Tasks.vue";
-import OptionsBar from './OptionsBar.vue';
+import Lists from "./Lists";
+import OptionsBar from './OptionsBar';
+import Notification from './Notification';
 export default {
   name: "Todo",
   components: { 
     Lists,
-    // Tasks,
-    OptionsBar
+    OptionsBar,
+    Notification
   },
 };
 </script>

@@ -34,11 +34,20 @@ export default {
     name: "MoreOptions",
     data: () => ({
         loading: false,
-        open: false,
         imageName: '',
         imageUrl: '',
         imageFile: ''
     }),
+    computed: {
+        open: {
+            get() {
+                return this.$store.getters.DRAWER;
+            },
+            set (value) {
+                this.$store.commit("SET_DRAWER", value);
+            }
+        }
+    },
     methods: {
         pickFile(){
             this.$refs.image.click()
