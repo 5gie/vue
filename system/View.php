@@ -5,12 +5,12 @@ namespace app\system;
 abstract class View
 {
 
-    public function render()
-    {
+    // public function render()
+    // {
 
-        include_once App::$ROOT_DIR . "/views/index.html";
+    //     include_once App::$ROOT_DIR . "/views/index.html";
 
-    }
+    // }
     // public string $title = '';
     // public string $layout = 'main';
 

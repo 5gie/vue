@@ -2,6 +2,7 @@ import Vue from 'vue'
 import vuetify from './plugins/vuetify'
 import VueRouter from 'vue-router'
 
+import axios from 'axios'
 import store from './stores/store'
 
 import App from './App.vue'
@@ -14,6 +15,8 @@ import NotesModal from './components/NotesModal'
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
+
+axios.defaults.baseURL = '/api/';
 
 const routes = [
   {

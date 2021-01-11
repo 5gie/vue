@@ -20,11 +20,6 @@ $config = [
 
 $app = new App(dirname(__DIR__), $config);
 
-
-
-$app->run();
-
-
 function debug($var)
 {
     echo "<pre style='padding:10px;font-size:12px;background:#2D2D2D;color:#d0d0d0'>";

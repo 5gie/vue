@@ -14,68 +14,81 @@ use app\system\Session;
 class AuthController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->registerMiddleware(new AuthMiddleware(['profile']));
+    public function __construct(){
+
+        parent::__construct();
+
     }
 
-    public function login(Request $request, Response $response)
+    // public function __construct()
+    // {
+    //     $this->registerMiddleware(new AuthMiddleware(['profile']));
+    // }
+
+    public function login()
     {
 
         $loginForm = new LoginForm;
-        if($request->post()){
+        if($this->request->post()){
 
-            $loginForm->data($request->body());
+            $loginForm->data($this->request->body());
             if($loginForm->validate() && $loginForm->login()){
 
-                $response->redirect('/');
-                return;
+        //         $response->redirect('/');
+        //         return;
             }
         }
+        debug($loginForm->errors);
+        exit;
+
         // $this->setLayout('auth');
 
-        return $this->render('auth/login', [
-            'model' => $loginForm
+        return $this->json([
+            // 'model' => $loginForm,
+            'status' => 202,
+            'data' => [
+                'model' => $loginForm
+            ]
         ]);
 
     }
 
-    public function register(Request $request, Response $response)
+    public function register()
     {
 
-        $user = new User();
-        $session = new Session;
+        // $user = new User();
+        // $session = new Session;
         
-        if ($request->post()) {
+        // if ($request->post()) {
 
-            $user->data($request->body());
+        //     $user->data($request->body());
 
-            if($user->validate() && $user->save()){
+        //     if($user->validate() && $user->save()){
 
-                $session->setFlash('success', 'Thank you for registration');
-                $response->redirect('/');
+        //         $session->setFlash('success', 'Thank you for registration');
+        //         $response->redirect('/');
             
-            }
+        //     }
 
-        }
+        // }
 
-        // $this->setLayout('auth');
+        // // $this->setLayout('auth');
 
-        return $this->render('auth/register', [
-            'model' => $user
-        ]);
+        // return $this->render('auth/register', [
+        //     'model' => $user
+        // ]);
 
     }
 
-    public function logout(Request $request, Response $response)
+    public function logout()
     {
-        App::$app->logout();
-        $response->redirect('/');
+        // App::$app->logout();
+        // $response->redirect('/');
     }
 
     public function profile()
     {
-        return $this->render('account/profile');
+        // return $this->render('account/profile');
     }
 
 }

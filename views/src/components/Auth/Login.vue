@@ -9,9 +9,10 @@
                             Login Form
                         </v-toolbar-title>
                     </v-toolbar>
+                    <v-alert :value="alert" color="error" type="error" dense>{{ alert }}</v-alert>
                     <v-card-text>
-                        <v-text-field name="login" label="Login" type="text" prepend-icon="mdi-account"></v-text-field>
-                        <v-text-field name="password" label="password" type="password" prepend-icon="mdi-lock"></v-text-field>
+                        <v-text-field v-model="username" name="login" label="Login" type="text" prepend-icon="mdi-account"></v-text-field>
+                        <v-text-field v-model="password" name="password" label="password" type="password" prepend-icon="mdi-lock"></v-text-field>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="blue" dark to="/register">Register</v-btn>
@@ -28,9 +29,20 @@
 <script>
 export default {
     name: "Login",
+    data: () => ({
+        username: '',
+        password: '',
+        alert: false
+    }),
     methods: {
         login() {
-            this.$router.push('/')
+            this.$store.dispatch("LOGIN",{
+                _username: this.username,
+                _password: this.password
+            }).then(resp => {
+                console.log(resp)
+                // this.$router.push('/')
+            }).catch(err => this.alert = err)
         }
     }
 }
