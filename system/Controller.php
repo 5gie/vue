@@ -13,10 +13,12 @@ class Controller
     protected array $flash = [];
     public Request $request;
     public Response $response;
+    public string $secret;
     
     public function __construct(){
         $this->request = new Request;
         $this->response = new Response;
+        $this->secret = App::$app->secret;
     }
 
     // public function render($template, $params = [])

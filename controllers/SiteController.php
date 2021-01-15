@@ -13,7 +13,7 @@ class SiteController extends Controller
     public function home()
     {
 
-        return $this->render('index');
+        // return $this->render('index');
         
     }
 

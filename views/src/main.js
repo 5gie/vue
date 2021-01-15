@@ -17,6 +17,16 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 
 axios.defaults.baseURL = '/api/';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// axsios.defay
+
+// let axiosConfig = {
+//   headers: {
+//       'Content-Type' : 'application/json; charset=UTF-8',
+//       'Accept': 'Token',
+//       "Access-Control-Allow-Origin": "*",
+//   }
+// }
 
 const routes = [
   {

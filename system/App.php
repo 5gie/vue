@@ -9,37 +9,29 @@ class App
     public static string $ROOT_DIR;
 
     public string $layout = 'main';
-    public string $userClass;
     public static App $app;
     public Router $router;
-    public Request $request;
-    public Response $response;
     public Database $db;
-    public Session $session;
     public View $view;
-    public ?Controller $controller = null;
     public ?UserModel $user;
+    public string $secret;
 
     public function __construct($root, array $config)
     {
 
-        $this->userClass = $config['userClass'];
         self::$ROOT_DIR = $root;
         self::$app = $this;
-        $this->request = new Request;
-        $this->response = new Response;
-        $this->controller = new Controller;
-        $this->session = new Session;
         $this->router = new Router;
         $this->db = new Database($config['db']);
+        $this->secret = $config['secret_key'];
 
-        $primaryValue = $this->session->get('user');
-        if($primaryValue){
-            $primaryKey = $this->userClass::primaryKey();
-            $this->user = $this->userClass::findOne([$primaryKey => $primaryValue]);
-        } else {
-            $this->user = null;
-        }
+        // $primaryValue = $this->session->get('user');
+        // if($primaryValue){
+        //     $primaryKey = $this->userClass::primaryKey();
+        //     $this->user = $this->userClass::findOne([$primaryKey => $primaryValue]);
+        // } else {
+        //     $this->user = null;
+        // }
 
         $this->run();
 
@@ -76,24 +68,24 @@ class App
     }
 
 
-    public function login(UserModel $user)
-    {
-        $this->user = $user;
-        $primaryKey = $user->primaryKey();
-        $primaryValue = $user->{$primaryKey};
-        $this->session->set('user', $primaryValue);
-        return true;
-    }
+    // public function login(UserModel $user)
+    // {
+    //     $this->user = $user;
+    //     $primaryKey = $user->primaryKey();
+    //     $primaryValue = $user->{$primaryKey};
+    //     $this->session->set('user', $primaryValue);
+    //     return true;
+    // }
 
-    public function logout()
-    {
-        $this->user = null;
-        $this->session->remove('user');
-    }
+    // public function logout()
+    // {
+    //     $this->user = null;
+    //     $this->session->remove('user');
+    // }
 
-    public static function isGuest()
-    {
-        return !self::$app->user;
-    }
+    // public static function isGuest()
+    // {
+    //     return !self::$app->user;
+    // }
 
 }

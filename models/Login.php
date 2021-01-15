@@ -3,10 +3,9 @@
 namespace app\models;
 
 use app\models\User;
-use app\system\App;
 use app\system\Model;
 
-class LoginForm extends Model
+class Login extends Model
 {
     public string $email = '';
     public string $password = '';
@@ -21,9 +20,29 @@ class LoginForm extends Model
 
     public function labels(): array
     {
+        
         return [
             'email' => 'E-mail',
             'password' => 'Password'
+        ];
+    }
+
+    public function form(): array
+    {
+        
+        return [
+            'email' => [
+                'label' => 'E-mail',
+                'icon' => 'account',
+                'type' => 'text',
+                'value' => $this->email
+            ],
+            'password' => [
+                'label' => 'Password',
+                'icon' => 'lock',
+                'type' => 'password',
+                'value' => ''
+            ],
         ];
     }
 
@@ -33,19 +52,19 @@ class LoginForm extends Model
 
         if(!$user){
 
-            $this->addError('email', 'User doesnt exists');
+            $this->addError('User doesnt exists');
             return false;
 
         }
 
         if(!password_verify($this->password, $user->password)){
 
-            $this->addError('password', 'Password is incorrect');
+            $this->addError('Password is incorrect');
             return false;
             
         }
 
-        return App::$app->login($user);
-        
+        return true;
+
     }
 }

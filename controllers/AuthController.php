@@ -3,13 +3,9 @@
 namespace app\controllers;
 
 use app\system\Controller;
-use app\system\Request;
 use app\models\User;
-use app\system\App;
-use app\models\LoginForm;
-use app\system\middlewares\AuthMiddleware;
-use app\system\Response;
-use app\system\Session;
+use app\models\Login;
+use \Firebase\JWT\JWT;
 
 class AuthController extends Controller
 {
@@ -20,35 +16,33 @@ class AuthController extends Controller
 
     }
 
-    // public function __construct()
-    // {
-    //     $this->registerMiddleware(new AuthMiddleware(['profile']));
-    // }
-
     public function login()
     {
 
-        $loginForm = new LoginForm;
+        $login = new Login;
+        $alert = '';
+
         if($this->request->post()){
 
-            $loginForm->data($this->request->body());
-            if($loginForm->validate() && $loginForm->login()){
+            $login->data($this->request->body());
 
-        //         $response->redirect('/');
-        //         return;
+            if($login->validate() && $login->login()){
+
+                $key = "example_key";
+                $jwt = JWT::encode($login, $key);
+
+                setcookie('token', $jwt, time() + 86400, '/');
+
+                $alert = 'Zalogowano pomyslnie';
+
             }
-        }
-        debug($loginForm->errors);
-        exit;
 
-        // $this->setLayout('auth');
+        } 
 
         return $this->json([
-            // 'model' => $loginForm,
-            'status' => 202,
-            'data' => [
-                'model' => $loginForm
-            ]
+            'error' => $login->getFirstError(),
+            'alert' => $alert,
+            'form' => $login->form()
         ]);
 
     }

@@ -3,16 +3,15 @@
     <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
-                <v-form>
+                <v-form v-if="form">
                     <v-toolbar dark color="blue">
                         <v-toolbar-title>
                             Login Form
                         </v-toolbar-title>
                     </v-toolbar>
-                    <v-alert :value="alert" color="error" type="error" dense>{{ alert }}</v-alert>
+                    <v-alert v-if="error" color="error" type="error" dense>{{ error }}</v-alert>
                     <v-card-text>
-                        <v-text-field v-model="username" name="login" label="Login" type="text" prepend-icon="mdi-account"></v-text-field>
-                        <v-text-field v-model="password" name="password" label="password" type="password" prepend-icon="mdi-lock"></v-text-field>
+                        <v-text-field v-for="(data, name) in form" v-model="model[name]" :key="name" :label="data.label" :type="data.type" :prepend-icon="`mdi-${data.icon}`"></v-text-field>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="blue" dark to="/register">Register</v-btn>
@@ -30,19 +29,32 @@
 export default {
     name: "Login",
     data: () => ({
-        username: '',
+        email: '',
         password: '',
-        alert: false
+        error: false,
+        form: false,
+        model: {}
     }),
+    created(){
+        this.$store.dispatch("GET_FORM",this.$router.currentRoute.path)
+            .then(resp => {
+                if(resp.data.form){
+                    this.form = resp.data.form;
+                    for(let key in resp.data.form) this.model[key] = '';
+                }
+            })
+            .catch(err => this.alert = err)
+    },
     methods: {
         login() {
-            this.$store.dispatch("LOGIN",{
-                _username: this.username,
-                _password: this.password
-            }).then(resp => {
-                console.log(resp)
-                // this.$router.push('/')
-            }).catch(err => this.alert = err)
+            // this.error = false;
+            this.$store.dispatch("LOGIN", this.model)
+            .then(resp => {
+                if(resp.data.error) this.error = resp.data.error;
+            //     console.log(resp);
+            //     // this.$router.push('/')
+            })
+            // .catch(err => this.alert = err)
         }
     }
 }

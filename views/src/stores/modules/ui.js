@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
     state: {
         drawer: false,
@@ -22,7 +24,7 @@ export default {
         },
         NEW_LIST_FORM: state => {
             return state.newListForm;
-        }
+        },
     },
     mutations: {
         SET_DRAWER: (state, payload) => {
@@ -40,5 +42,15 @@ export default {
             state.newListForm = payload;
         }
     },
-    actions: {}
+    actions: {
+        GET_FORM: async ({commit}, payload) => {
+            console.log(commit);
+            return await axios.get(payload)
+                // .then() => {
+                //     // console.log(data);
+                //     // if(status == 200) console.log('poszlo')
+                // })
+                .catch(err => console.log(err))
+        }
+    }
 }

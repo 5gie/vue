@@ -1,6 +1,6 @@
 <?php
 ini_set('memory_limit', '-1');
-use app\models\User;
+// use app\models\User;
 use app\system\App;
 use Dotenv\Dotenv;
 
@@ -10,12 +10,13 @@ $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
 $config = [
-    'userClass' => User::class,
+    // 'userClass' => User::class,
     'db' => [
         'dsn' => $_ENV['DB_DSN'],
         'user' => $_ENV['DB_USER'],
         'password' => $_ENV['DB_PASSWORD']
-    ]  
+    ],
+    'secret_key' => $_ENV['SECRET_KEY']
 ];
 
 $app = new App(dirname(__DIR__), $config);

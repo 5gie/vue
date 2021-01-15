@@ -52,7 +52,9 @@ class Request
 
         if($this->post()){
 
-            foreach($_POST as $key => $post) $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+            $json = json_decode(file_get_contents('php://input'), true);
+
+            if($json && is_array($json)) foreach ($json as $i => $j) $body[$i] = filter_var($j, FILTER_SANITIZE_SPECIAL_CHARS);
 
         }
 
