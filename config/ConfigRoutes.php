@@ -20,7 +20,14 @@ class ConfigRoutes
             $router->get('/register', 'AuthController@register');
             $router->post('/register', 'AuthController@register');
             $router->get('/logout', 'AuthController@logout');
-            $router->get('/profile', 'AuthController@profile');
+
+            $router->mount('/profile', function () use ($router) {
+                
+                $router->before('GET|POST', '/.*', 'MiddlewareController@profile');
+                $router->get('/', 'AuthController@profile');
+
+            });
+
 
         });
 
