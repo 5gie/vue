@@ -2,25 +2,26 @@
 
 use app\system\App;
 
-class m0001_initial 
+class m0003_lists
 {
     public function up()
     {
         $db = App::$app->db;
-        $query = "CREATE TABLE users (
+        $query = "CREATE TABLE lists (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            email VARCHAR(255) NOT NULL,
-            name VARCHAR(255) NOT NULL,
+            title VARCHAR(255) NOT NULL,
+            background VARCHAR(255) NOT NULL,
             status TINYINT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         $db->pdo->exec($query);
+
     }
 
     public function down()
     {
         $db = App::$app->db;
-        $sql = "DROP TABLE users";
+        $sql = "DROP TABLE lists";
         $db->pdo->exec($sql);
     }
 }

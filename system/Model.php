@@ -62,7 +62,7 @@ abstract class Model
 
                 if($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) $this->addErrorForRule(self::RULE_MAX, [self::RULE_MIN => $rule['min']]);
 
-                if($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) $this->addErrorForRule(self::RULE_MATCH, [self::RULE_MATCH => $this->getLabel($rule['match'])]);
+                if($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) $this->addErrorForRule(self::RULE_MATCH, [self::RULE_MATCH => $this->getLabel($rule['match']), 'field' => $this->getLabel($attr)]);
 
                 if($ruleName === self::RULE_UNIQUE){
                     $className = $rule['class'];
@@ -73,7 +73,7 @@ abstract class Model
                     $stmt->bindValue(":attr", $value);
                     $stmt->execute();
                     $record = $stmt->fetchObject();
-                    if($record) $this->addErrorForRule($attr, self::RULE_UNIQUE, ['field' => $this->getLabel($attr)]);
+                    if($record) $this->addErrorForRule(self::RULE_UNIQUE, ['field' => $this->getLabel($attr)]);
                 }
          
             }
@@ -109,8 +109,8 @@ abstract class Model
             self::RULE_EMAIL => 'This field must be valid email address',
             self::RULE_MIN => 'Min length of this field must be {min}',
             self::RULE_MAX => 'Max length of this field must be {max}',
-            self::RULE_MATCH => 'This field must be the same as {match}',
-            self::RULE_UNIQUE => 'Record with this {field} already exists' 
+            self::RULE_MATCH => '{field} must be the same as {match}',
+            self::RULE_UNIQUE => '{field} already exists' 
 
         ];
 

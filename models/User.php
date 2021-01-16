@@ -35,6 +35,33 @@ class User extends UserModel
         return parent::save();
 
     }
+
+    public function form(): array
+    {
+
+        return [
+            'name' => [
+                'label' => 'Username',
+                'icon' => 'account',
+                'type' => 'text'
+            ],
+            'email' => [
+                'label' => 'E-mail',
+                'icon' => 'at',
+                'type' => 'text'
+            ],
+            'password' => [
+                'label' => 'Password',
+                'icon' => 'lock',
+                'type' => 'password'
+            ],
+            'password2' => [
+                'label' => 'Confirm password',
+                'icon' => 'lock-check',
+                'type' => 'password'
+            ]
+        ];
+    }
     
     public function rules(): array
     {

@@ -10,10 +10,9 @@ use \Firebase\JWT\JWT;
 class AuthController extends Controller
 {
 
-    public function __construct(){
-
+    public function __construct()
+    {
         parent::__construct();
-
     }
 
     public function login()
@@ -28,7 +27,7 @@ class AuthController extends Controller
 
             if($login->validate() && $login->login()){
 
-                $key = "example_key";
+                $key = $this->secret;
                 $jwt = JWT::encode($login, $key);
 
                 setcookie('token', $jwt, time() + 86400, '/');
@@ -50,27 +49,27 @@ class AuthController extends Controller
     public function register()
     {
 
-        // $user = new User();
-        // $session = new Session;
+        $user = new User;
+
+        $alert = '';
         
-        // if ($request->post()) {
+        if ($this->request->post()) {
 
-        //     $user->data($request->body());
+            $user->data($this->request->body());
 
-        //     if($user->validate() && $user->save()){
+            if($user->validate() && $user->save()){
 
-        //         $session->setFlash('success', 'Thank you for registration');
-        //         $response->redirect('/');
+                $alert = 'Zarejestrowano pomyślnie.';
             
-        //     }
+            }
 
-        // }
+        }
 
-        // // $this->setLayout('auth');
-
-        // return $this->render('auth/register', [
-        //     'model' => $user
-        // ]);
+        return $this->json([
+            'error' => $user->getFirstError(),
+            'alert' => $alert,
+            'form' => $user->form()
+        ]);
 
     }
 

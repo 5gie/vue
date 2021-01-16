@@ -16,10 +16,10 @@ $config = [
         'user' => $_ENV['DB_USER'],
         'password' => $_ENV['DB_PASSWORD']
     ],
-    'secret_key' => $_ENV['SECRET_KEY']
+    'SECRET_KEY' => $_ENV['SECRET_KEY']
 ];
 
-$app = new App(dirname(__DIR__), $config);
+$app = new App(dirname(__DIR__), $config, true);
 
 function debug($var)
 {

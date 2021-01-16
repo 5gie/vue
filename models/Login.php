@@ -34,14 +34,12 @@ class Login extends Model
             'email' => [
                 'label' => 'E-mail',
                 'icon' => 'account',
-                'type' => 'text',
-                'value' => $this->email
+                'type' => 'text'
             ],
             'password' => [
                 'label' => 'Password',
                 'icon' => 'lock',
-                'type' => 'password',
-                'value' => ''
+                'type' => 'password'
             ],
         ];
     }

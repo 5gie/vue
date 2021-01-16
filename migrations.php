@@ -13,9 +13,10 @@ $config = [
         'dsn' => $_ENV['DB_DSN'],
         'user' => $_ENV['DB_USER'],
         'password' => $_ENV['DB_PASSWORD']
-    ]
+    ],
+    'SECRET_KEY' => $_ENV['SECRET_KEY']
 ];
 
-$app = new App(__DIR__, $config);
+$app = new App(__DIR__, $config, false);
 
 $app->db->applyMigrations();

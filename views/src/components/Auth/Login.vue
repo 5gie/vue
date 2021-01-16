@@ -29,14 +29,12 @@
 export default {
     name: "Login",
     data: () => ({
-        email: '',
-        password: '',
         error: false,
         form: false,
         model: {}
     }),
     created(){
-        this.$store.dispatch("GET_FORM",this.$router.currentRoute.path)
+        this.$store.dispatch("GET_FORM", this.$router.currentRoute.path)
             .then(resp => {
                 if(resp.data.form){
                     this.form = resp.data.form;
@@ -47,12 +45,18 @@ export default {
     },
     methods: {
         login() {
-            // this.error = false;
+            this.error = false;
             this.$store.dispatch("LOGIN", this.model)
             .then(resp => {
                 if(resp.data.error) this.error = resp.data.error;
-            //     console.log(resp);
-            //     // this.$router.push('/')
+                if(resp.data.alert) {
+                    this.$store.commit("SET_NOTIFICATION", {
+                        display: true,
+                        text: resp.data.alert,
+                        alert: 'info'
+                    });
+                }
+                this.$router.push('/')
             })
             // .catch(err => this.alert = err)
         }

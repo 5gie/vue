@@ -28,7 +28,7 @@
             </v-list>
             <v-divider></v-divider>
             <v-list class="flex-grow-1" style="overflow:hidden auto">
-                <v-list-item v-for="(list, key) in lists" :key="key" :to="{ name: 'Tasks', params: { id:list.id } }">
+                <v-list-item v-for="(list, key) in LISTS" :key="key" :to="{ name: 'Tasks', params: { id:list.id } }">
                     <v-list-item-content>
                         <v-list-item-title>
                             {{ list.title }}
@@ -60,107 +60,9 @@ export default {
             this.$store.commit("SET_NEW_LIST_FORM", true);
         }
     },
-    data: () => ({
-        lists: [
-            {
-                id: 1,
-                title: 'test 1',
-                tasks: 12
-            },
-            {
-                id: 2,
-                title: 'testtest',
-                tasks: 13
-            },
-            {
-                id: 3,
-                title: 'test 123',
-                tasks: 54
-            },
-            {
-                id: 4,
-                title: 'test 1',
-                tasks: 12
-            },
-            {
-                id: 5,
-                title: 'testtest',
-                tasks: 13
-            },
-            {
-                id: 6,
-                title: 'test 123',
-                tasks: 54
-            },
-            {
-                id: 7,
-                title: 'test 1',
-                tasks: 12
-            },
-            {
-                id: 8,
-                title: 'testtest',
-                tasks: 13
-            },
-            {
-                id: 9,
-                title: 'test 123',
-                tasks: 54
-            },
-            {
-                id: 10,
-                title: 'test 1',
-                tasks: 12
-            },
-            {
-                id: 11,
-                title: 'testtest',
-                tasks: 13
-            },
-            {
-                id: 12,
-                title: 'test 123',
-                tasks: 54
-            },
-            {
-                id: 13,
-                title: 'test 1',
-                tasks: 12
-            },
-            {
-                id: 14,
-                title: 'testtest',
-                tasks: 13
-            },
-            {
-                id: 15,
-                title: 'test 123',
-                tasks: 54
-            },
-            {
-                id: 16,
-                title: 'test 123',
-                tasks: 54
-            },
-            {
-                id: 17,
-                title: 'test 1',
-                tasks: 12
-            },
-            {
-                id: 18,
-                title: 'testtest',
-                tasks: 13
-            },
-            {
-                id: 19,
-                title: 'test 123',
-                tasks: 54
-            },
-        ],
-    }),
+    data: () => ({}),
     computed: {
-        ...mapGetters(['DISPLAY_SEARCH_LIST']),
+        ...mapGetters(['DISPLAY_SEARCH_LIST', 'LISTS']),
         openNewListFormValue: {
             get() {
                 return this.$store.getters.NEW_LIST_FORM;
@@ -172,6 +74,9 @@ export default {
         newListIsOpen() {
             return this.$store.getters.NEW_LIST_FORM;
         }
+    },
+    mounted () {
+        this.$store.dispatch("GET_LISTS");
     }
 }
 </script>
