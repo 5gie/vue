@@ -49,16 +49,9 @@ export default {
             this.$store.dispatch("LOGIN", this.model)
             .then(resp => {
                 if(resp.data.error) this.error = resp.data.error;
-                if(resp.data.alert) {
-                    this.$store.commit("SET_NOTIFICATION", {
-                        display: true,
-                        text: resp.data.alert,
-                        alert: 'info'
-                    });
-                }
-                this.$router.push('/')
+                this.$router.push('/profile')
             })
-            // .catch(err => this.alert = err)
+            .catch(err => this.error = err.response.data.error)
         }
     }
 }

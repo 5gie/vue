@@ -46,11 +46,6 @@ export default {
         GET_FORM: async ({commit}, payload) => {
             console.log(commit);
             return await axios.get(payload)
-                // .then() => {
-                //     // console.log(data);
-                //     // if(status == 200) console.log('poszlo')
-                // })
-                .catch(err => console.log(err))
         }
     }
 }

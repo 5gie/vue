@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer permanent width="100%">
         <div class="d-flex flex-column" fill-height  style="height: calc(100vh - 48px); overflow: hidden">
-            <v-toolbar color="blue" dark>
+            <v-toolbar color="blue" dark class="flex-grow-0">
                 <v-toolbar-title v-if="!DISPLAY_SEARCH_LIST">
                     Your lists
                 </v-toolbar-title>
@@ -27,7 +27,7 @@
                 </v-list-item>
             </v-list>
             <v-divider></v-divider>
-            <v-list class="flex-grow-1" style="overflow:hidden auto">
+            <v-list class="flex-grow-1" style="overflow:hidden auto" v-if="LISTS.length">
                 <v-list-item v-for="(list, key) in LISTS" :key="key" :to="{ name: 'Tasks', params: { id:list.id } }">
                     <v-list-item-content>
                         <v-list-item-title>
@@ -36,7 +36,7 @@
                     </v-list-item-content>
                     <v-list-item-action>
                         <v-list-item-title>
-                            {{ list.tasks }} 
+                            {{ list.tasks.length }} 
                         </v-list-item-title>
                     </v-list-item-action>
                 </v-list-item>
@@ -75,8 +75,22 @@ export default {
             return this.$store.getters.NEW_LIST_FORM;
         }
     },
-    mounted () {
-        this.$store.dispatch("GET_LISTS");
+    beforeCreate () {
+        this.$store.dispatch("GET_LISTS")
+            .then(resp => {
+                const { data } = resp
+                this.$store.commit("SET_LISTS", data)
+            })
+            .catch(err => {
+                if(err.response.data.error) {
+                    this.$store.commit("SET_NOTIFICATION", {
+                        display: true,
+                        text: err.response.data.error,
+                        alert: 'error'
+                    })
+                    this.$router.push('/login');
+                }
+            })
     }
 }
 </script>

@@ -18,7 +18,6 @@ $config = [
     ],
     'SECRET_KEY' => $_ENV['SECRET_KEY']
 ];
-
 $app = new App(dirname(__DIR__), $config, true);
 
 function debug($var)

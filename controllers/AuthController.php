@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\system\Controller;
 use app\models\User;
 use app\models\Login;
+use app\system\App;
 use \Firebase\JWT\JWT;
 
 class AuthController extends Controller
@@ -27,10 +28,17 @@ class AuthController extends Controller
 
             if($login->validate() && $login->login()){
 
-                $key = $this->secret;
-                $jwt = JWT::encode($login, $key);
+                $user = [
+                    'id' => $login->id,
+                    'email' => $login->email,
+                    'login' => $login->name
+                ];
+
+                $jwt = JWT::encode($user, $this->secret);
 
                 setcookie('token', $jwt, time() + 86400, '/');
+
+                App::$app->login($user);
 
                 $alert = 'Zalogowano pomyslnie';
 

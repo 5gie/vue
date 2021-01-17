@@ -22,9 +22,10 @@ class ConfigRoutes
             $router->get('/logout', 'AuthController@logout');
 
             $router->mount('/profile', function () use ($router) {
-                
-                $router->before('GET|POST', '/.*', 'MiddlewareController@profile');
-                $router->get('/', 'AuthController@profile');
+
+                $router->get('/', 'AccountController@profile');
+
+                $router->post('/lists/create', 'ListsController@create');
 
             });
 

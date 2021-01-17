@@ -7,6 +7,8 @@ use app\system\Model;
 
 class Login extends Model
 {
+    public ?int $id;
+    public string $name = '';
     public string $email = '';
     public string $password = '';
     
@@ -61,6 +63,9 @@ class Login extends Model
             return false;
             
         }
+
+        $this->name = $user->name;
+        $this->id = $user->id;
 
         return true;
 

@@ -18,20 +18,17 @@
           {{ new Date().getFullYear() }} &copy; <strong>Pozdrawiam serdecznie</strong>
       </v-col>
     </v-footer>
-    <Notification />
   </div>
 </template>
 
 <script>
 import Lists from "./Lists";
 import OptionsBar from './OptionsBar';
-import Notification from './Notification';
 export default {
   name: "Todo",
   components: { 
     Lists,
     OptionsBar,
-    Notification
   },
 };
 </script>

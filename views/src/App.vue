@@ -1,26 +1,16 @@
 <template>
   <v-app>
-    <router-view></router-view>
-    <!-- <v-main>
-      <Todo/>
-      <Register/>
-      <Login/>
-    </v-main> -->
+    <router-view></router-view>    
+    <Notification />
   </v-app>
 </template>
 
 <script>
-// import Login from './components/Auth/Login.vue';
-// import Register from './components/Auth/Register.vue';
-// import Todo from './components/Todo.vue';
-
+import Notification from './components/Notification';
 export default {
   name: 'App',
   components: {
-    // Login,
-    // Register,
-    // Todo
+    Notification
   }
-
-};
+};    
 </script>
