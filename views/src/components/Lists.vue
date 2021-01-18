@@ -36,7 +36,7 @@
                     </v-list-item-content>
                     <v-list-item-action>
                         <v-list-item-title>
-                            {{ list.tasks.length }} 
+                            <!-- {{ list.tasks.length }}  -->
                         </v-list-item-title>
                     </v-list-item-action>
                 </v-list-item>
@@ -79,7 +79,7 @@ export default {
         this.$store.dispatch("GET_LISTS")
             .then(resp => {
                 const { data } = resp
-                this.$store.commit("SET_LISTS", data)
+                this.$store.commit("SET_LISTS", data.lists)
             })
             .catch(err => {
                 if(err.response.data.error) {

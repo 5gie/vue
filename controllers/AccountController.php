@@ -30,7 +30,7 @@ class AccountController extends Controller
     public function profile()
     {
 
-        $lists = Lists::getLists(['user_id' => App::$app->user->id]);
+        $lists = Lists::findAll(['user_id' => App::$app->user->id], ['id' => 'DESC']);
 
         return $this->json([
             'lists' => $lists

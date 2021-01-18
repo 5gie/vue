@@ -45,7 +45,7 @@ abstract class DbModel extends Model
     }
     public static function lastInsertId(): int
     {
-        return App::$app->db->lastInsertId;
+        return App::$app->db->pdo->lastInsertId();
     }
 
     public static function findOne($where)
@@ -64,11 +64,15 @@ abstract class DbModel extends Model
 
     }
 
-    public static function findAll($where)
+    public static function findAll($where, array $order = [], int $offset = 0, $limit = false)
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
         $query = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
+
+        if(!empty($order)) foreach($order as $item => $type) $query .= " ORDER BY $item $type";
+
+        if($limit) $query .= " LIMIT $offset, $limit"; 
 
         $stmt = self::prepare("SELECT * FROM $tableName WHERE $query");
         foreach($where as $key => $item){

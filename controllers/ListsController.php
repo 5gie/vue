@@ -36,7 +36,9 @@ class ListsController extends Controller
 
             $lists->data($this->request->body());
 
-            if($lists->validate()) $lists->save();
+            $lists->user_id = App::$app->user->id;
+
+            if($lists->validate() && $lists->save()) $this->response->setStatusCode(201);
 
         }
 

@@ -17,26 +17,7 @@ export default {
     methods: {
         submit() {
             this.$store.dispatch("CREATE_LIST", {title: this.title})
-            .then(resp => {
-                console.log(resp);
-                if(resp.data.alert) {
-                    this.$store.commit("SET_NOTIFICATION", {
-                        display: true,
-                        text: resp.data.alert,
-                        alert: 'blue'
-                    });
-                    this.title = '';
-                    this.$router.push({
-                        name: 'tasks',
-                        params: {
-                            id: resp.data.id
-                        }
-                    })
-                    this.$store.commit("SET_NEWLIST_FORM", false)
-                } else if(resp.data.error){
-                    this.error = resp.data.error;
-                }
-            })
+
         },
         closeForm() {
             this.$store.commit("SET_NEW_LIST_FORM", false)

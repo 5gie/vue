@@ -12,6 +12,7 @@ class Lists extends DbModel
 
     public $id;
     public string $title = '';
+    public int $user_id;
     public int $status = self::STATUS_ACTIVE;
 
     public static function tableName(): string
@@ -40,7 +41,7 @@ class Lists extends DbModel
 
     public function attributes(): array
     {
-        return ['title'];
+        return ['title', 'user_id', 'status'];
     }
 
     public function labels(): array
@@ -48,11 +49,6 @@ class Lists extends DbModel
         return [
             'title' => 'Title',
         ];
-    }
-
-    public static function getLists($where)
-    {
-        return self::findAll($where);
     }
 
 }
