@@ -36,7 +36,7 @@ class AuthController extends Controller
 
                 $jwt = JWT::encode($user, $this->secret);
 
-                setcookie('token', $jwt, time() + 86400, '/');
+                setcookie('token', $jwt, time() + 86400);
 
                 App::$app->login($user);
 

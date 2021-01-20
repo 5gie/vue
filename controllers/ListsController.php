@@ -20,9 +20,12 @@ class ListsController extends Controller
             
         } catch (\Exception $e) {
 
-            return $this->json([
+            $this->response->setStatusCode(403);
+            $this->json([
                 'error' => $e->getMessage()
             ]);
+            exit;
+
         }
     }
 

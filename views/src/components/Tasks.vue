@@ -11,7 +11,7 @@
                 </v-btn>
             </v-toolbar>
             <v-list two-line class="flex-grow-1" style="overflow:hidden scroll">
-                <template v-for="(task,key) in tasks">
+                <template v-for="(task,key) in TASKS">
                     <Task :key="key" :task="task"/>
                 </template>
             </v-list>
@@ -31,108 +31,37 @@
 <script>
 import Task from './Task';
 import NewTask from './NewTask';
+import { mapGetters } from 'vuex'
 export default {
     components: { Task, NewTask },
     name: "Tasks",
     data: () => ({
-        tasks: [ 
-            {
-                id: 1,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: true
-            },
-            {
-                id: 2,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 3,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 4,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 5,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 6,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 7,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 8,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 9,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 10,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 11,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 12,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 13,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 14,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            },
-            {
-                id: 15,
-                title: "task title",
-                sub_title: "This is task contains 8 notes",
-                checked: false
-            }
-            
-        ]
+        
     }),
     computed: {
+         ...mapGetters(['TASKS']),
         listId() {
             return this.$route.params.id
         }
+    },
+    created() {
+        this.$store.dispatch("GET_TASKS", this.$route.params.id)
+            .then(resp => {
+                const { data } = resp
+                this.$store.commit("SET_TASKS", data.tasks)
+            })
+            .catch(
+                // err => {
+                // if(err.response.data.error) {
+                //     this.$store.commit("SET_NOTIFICATION", {
+                //         display: true,
+                //         text: err.response.data.error,
+                //         alert: 'error'
+                //     })
+                //     this.$router.push('/profile');
+                // }
+            // }
+            )
     }
 }
 </script>

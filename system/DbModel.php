@@ -52,7 +52,7 @@ abstract class DbModel extends Model
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
-        $query = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
+        $query = implode(" AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
 
         $stmt = self::prepare("SELECT * FROM $tableName WHERE $query");
         foreach($where as $key => $item){

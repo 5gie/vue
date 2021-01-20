@@ -27,8 +27,8 @@
                 </v-list-item>
             </v-list>
             <v-divider></v-divider>
-            <v-list class="flex-grow-1" style="overflow:hidden auto" v-if="LISTS.length">
-                <v-list-item v-for="(list, key) in LISTS" :key="key" :to="{ name: 'Tasks', params: { id:list.id } }">
+            <v-list class="flex-grow-1" style="overflow:hidden auto" v-if="LISTS && LISTS.length">
+                <v-list-item v-for="(list, key) in LISTS" :key="key" :to="{ name: 'Tasks', params: { id: list.id } }">
                     <v-list-item-content>
                         <v-list-item-title>
                             {{ list.title }}
