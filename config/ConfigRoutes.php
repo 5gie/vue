@@ -27,6 +27,7 @@ class ConfigRoutes
 
                 $router->post('/list/create', 'ListsController@create');
                 $router->post('/list/{id}/create', 'TasksController@create');
+                $router->post('/list/{id}/task/{id}/status', 'TasksController@status');
                 $router->get('/list/{id}', 'TasksController@tasks');
 
             });

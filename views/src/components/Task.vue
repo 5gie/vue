@@ -14,8 +14,9 @@
             </v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
-              <v-checkbox @click.prevent="toggle()"
-                :input-value="task.checked"
+            {{task.status}}
+              <v-checkbox @click.prevent="toggle(task.id)"
+                :input-value="task.status == 1 ? true : false"
                 color="green"
               ></v-checkbox>
         </v-list-item-action>
@@ -29,8 +30,9 @@ export default {
         task: Object,
     },
     methods: {
-        toggle(){
-            this.task.checked = !this.task.checked;
+        toggle(task_id){
+            // this.task.status = !this.task.status;
+            this.$store.dispatch("TOGGLE_TASK_STATUS", { list_id: this.$route.params.id, task_id});
         },
         openModal(){
             this.$router.push({

@@ -31,6 +31,11 @@ class Tasks extends DbModel
         return $this->id ?? false;
     }
 
+    public function update($where)
+    {
+        return parent::update($where);
+    }
+
     public function rules(): array
     {
 

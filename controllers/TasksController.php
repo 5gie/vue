@@ -14,6 +14,7 @@ class TasksController extends Controller
     public function __construct()
     {
         parent::__construct();
+
         try {
 
             $auth = new AuthMiddleware;
@@ -84,6 +85,40 @@ class TasksController extends Controller
         return $this->json([
             'error' => $error,
             'tasks' => $tasks
+        ]);
+
+
+    }
+
+    public function status($list_id, $task_id)
+    {
+
+        $error = false;
+
+        $list = Lists::findOne(['id' => $list_id, 'user_id' => App::$app->user->id]);
+
+        $task = Tasks::findOne(['id' => $task_id]);
+
+        if ($list && $task) {
+
+            $task->status = $task->status == 1 ? 0 : 1;
+
+            $update = $task->update(['id' => $task_id]);
+            
+            if(!$update){
+
+                $error = 'Wystąpił nieoczekiwany błąd';
+
+            }
+
+        } else {
+            
+            $error = 'Błąd autoryzacji';
+
+        }
+
+        return $this->json([
+            'error' => $error
         ]);
 
 

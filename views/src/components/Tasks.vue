@@ -3,7 +3,7 @@
         <v-card height="calc(100vh - 48px)" class="rounded-0 d-flex flex-column" style="overflow:hidden">
             <v-toolbar color="blue" dark class="flex-grow-0">
                 <v-toolbar-title>
-                    Title of the list {{ listId }}
+                    {{ listTitle }}
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn icon>
@@ -40,28 +40,15 @@ export default {
     }),
     computed: {
          ...mapGetters(['TASKS']),
-        listId() {
-            return this.$route.params.id
-        }
+        // TASKS() {
+        //     return this.$store.getters.TASKS(this.$route.params.id);
+        // },
+        listTitle() {
+            return this.$store.getters.LIST_TITLE(this.$route.params.id)
+        },
     },
-    created() {
-        this.$store.dispatch("GET_TASKS", this.$route.params.id)
-            .then(resp => {
-                const { data } = resp
-                this.$store.commit("SET_TASKS", data.tasks)
-            })
-            .catch(
-                // err => {
-                // if(err.response.data.error) {
-                //     this.$store.commit("SET_NOTIFICATION", {
-                //         display: true,
-                //         text: err.response.data.error,
-                //         alert: 'error'
-                //     })
-                //     this.$router.push('/profile');
-                // }
-            // }
-            )
+    async mounted() {
+        await this.$store.dispatch("GET_TASKS", this.$route.params.id)
     }
 }
 </script>

@@ -39,6 +39,40 @@ abstract class DbModel extends Model
 
     }
 
+    public function update($where)
+    {
+
+        try {
+
+            $tableName = $this->tableName();
+            $attributes = $this->attributes();
+            $params = array_map(fn ($a) => "$a = :$a", $attributes);
+
+            $query = implode(" AND ", array_map(fn($attr) => "$attr = :$attr", array_keys($where)));
+
+            $stmt = self::prepare("UPDATE $tableName SET ".implode(', ',$params)." WHERE $query");
+
+            foreach ($attributes as $attr) {
+                $stmt->bindValue(":$attr", $this->{$attr});
+            }
+
+            foreach ($where as $key => $item) {
+                $stmt->bindValue(":$key", $item);
+            }
+
+            $stmt->execute();
+
+            return true;
+
+        } catch (PDOException $e) {
+
+            debug($e->getMessage());
+            error_log($e->getMessage());
+            return false;
+        }
+
+    }
+
     public static function prepare($sql)
     {
         return App::$app->db->prepare($sql);

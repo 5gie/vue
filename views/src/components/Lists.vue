@@ -36,7 +36,7 @@
                     </v-list-item-content>
                     <v-list-item-action>
                         <v-list-item-title>
-                            <!-- {{ list.tasks.length }}  -->
+                            <!-- {{ TASKS_COUNT(list.id) }}  -->
                         </v-list-item-title>
                     </v-list-item-action>
                 </v-list-item>
@@ -73,24 +73,13 @@ export default {
         },
         newListIsOpen() {
             return this.$store.getters.NEW_LIST_FORM;
+        },
+        TASKS_COUNT(id){
+            return this.$store.getters.TASKS_COUNT(id)
         }
     },
-    beforeCreate () {
+    mounted () {
         this.$store.dispatch("GET_LISTS")
-            .then(resp => {
-                const { data } = resp
-                this.$store.commit("SET_LISTS", data.lists)
-            })
-            .catch(err => {
-                if(err.response.data.error) {
-                    this.$store.commit("SET_NOTIFICATION", {
-                        display: true,
-                        text: err.response.data.error,
-                        alert: 'error'
-                    })
-                    this.$router.push('/login');
-                }
-            })
     }
 }
 </script>
